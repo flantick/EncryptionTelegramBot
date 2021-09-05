@@ -17,7 +17,7 @@ def mksign(password, reportiontext):
         signature = sign(curve, key, dgst)  # формирование подписи
         signature = hexenc(signature)
         pub_x, pub_y = public_key(curve, key)  # формирование публичного ключа
-        report = ('Подпись - ' + signature + ' Публичный ключ1 - ' + str(pub_x) + ' Публичный ключ2 - ' + str(pub_y))
+        report = ('Подпись - ' + signature + '\nПубличный ключ1 - ' + str(pub_x) + '\nПубличный ключ2 - ' + str(pub_y))
         return report
     elif (password == 'error0') or (reportiontext == 'error0'):  # проверка правописания команды
         return 'Команда введена неверно, воспользуйтесь подсказкой  - /help'

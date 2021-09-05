@@ -9,6 +9,7 @@ def aescrypt(password, reportiontext, cryption):
 
         kdf = PBKDF2HMAC(  # формирование ключа
         algorithm=hashes.SHA256(),
+        salt=b'\xef\x1e\x92{2\xd0\xe9Fj\xeeW\xe12\xcf\xb0\xa8',
         length=32,
         iterations=100000,)
 
