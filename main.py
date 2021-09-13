@@ -51,37 +51,51 @@ def hashhelpp(message):
 
 @bot.message_handler(commands=['aesen'])
 def ferneten(message):
-    bot.send_message(message.chat.id, aes.aescrypt(founder.FoundContentFromTag.found('key', message.text), founder.FoundContentFromTag.found('text', message.text), True))
+    obj = founder.FoundContent(message.text)
+    obj.set_values()
+    bot.send_message(message.chat.id, aes.aescrypt(obj.key, obj.cipher_or_text, True))
 
 
 @bot.message_handler(commands=['aesde'])
 def fernetende(message):
-    bot.send_message(message.chat.id, aes.aescrypt(founder.FoundContentFromTag.found('key', message.text), founder.FoundContentFromTag.found('text', message.text), False))
+    obj = founder.FoundContent(message.text)
+    obj.set_values()
+    bot.send_message(message.chat.id, aes.aescrypt(obj.key, obj.cipher_or_text, False))
 
 
 @bot.message_handler(commands=['gosten'])
 def asycrypt(message):
-    bot.send_message(message.chat.id, gist.gostcrypt(founder.FoundContentFromTag.found('key', message.text), founder.FoundContentFromTag.found('text', message.text), True))
+    obj = founder.FoundContent(message.text)
+    obj.set_values()
+    bot.send_message(message.chat.id, gist.gostcrypt(obj.key, obj.cipher_or_text, True))
 
 
 @bot.message_handler(commands=['gostde'])
 def asydecrypt(message):
-    bot.send_message(message.chat.id, gist.gostcrypt(founder.FoundContentFromTag.found('key', message.text), founder.FoundContentFromTag.found('text', message.text), False))
+    obj = founder.FoundContent(message.text)
+    obj.set_values()
+    bot.send_message(message.chat.id, gist.gostcrypt(obj.key, obj.cipher_or_text, False))
 
 
 @bot.message_handler(commands=['mksign'])
 def msign(message):
-    bot.send_message(message.chat.id, ecp.mksign(founder.FoundContentFromTag.found('key', message.text), founder.FoundContentFromTag.found('text', message.text)))
+    obj = founder.FoundContent(message.text)
+    obj.set_values()
+    bot.send_message(message.chat.id, ecp.mksign(obj.key, obj.cipher_or_text))
 
 
 @bot.message_handler(commands=['vrfsign'])
 def vrsign(message):
-    bot.send_message(message.chat.id, ecp.vrfsign(founder.FoundContentFromTag.found('key1', message.text), founder.FoundContentFromTag.found('key2', message.text), founder.FoundContentFromTag.found('text', message.text), founder.FoundContentFromTag.found('sgn', message.text)))
+    obj = founder.FoundContent(message.text, True)
+    obj.set_values()
+    bot.send_message(message.chat.id, ecp.vrfsign(obj.key.split(':', maxsplit=1), obj.cipher_or_text, obj.text_for_sgn))
 
 
 @bot.message_handler(commands=['hash'])
 def hashreport(message):
-    bot.send_message(message.chat.id, hashing.hash(founder.FoundContentFromTag.found('key', message.text), founder.FoundContentFromTag.found('text', message.text)))
+    obj = founder.FoundContent(message.text)
+    obj.set_values()
+    bot.send_message(message.chat.id, hashing.hash(obj.key, obj.cipher_or_text))
 
 
 bot.polling(none_stop=True)

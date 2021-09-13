@@ -23,15 +23,15 @@ def mksign(password, reportiontext):
         return 'Команда введена неверно, воспользуйтесь подсказкой  - /help'
 
 
-def vrfsign(key_x, key_y, text, signature):
-    if (key_x != 'error0') and (key_y != 'error0') and (text != 'error0') and (signature != 'error0'):  # проверка правописания команды
+def vrfsign(key_x_y, signature, text):
+    if (key_x_y[0] != 'error0') and (key_x_y[1] != 'error0') and (text != 'error0') and (signature != 'error0'):  # проверка правописания команды
         curve = CURVES["id-GostR3410-2001-CryptoPro-A-ParamSet"]  # определяем точки кривой
         dgst = gost34112012256.new(text.encode('utf-8')).digest()  # получайем дайджест сообщения
         try:
             signature = hexdec(signature)
         except:
             return False
-        is_signed = verify(curve, (int(key_x), int(key_y)), dgst, signature)  # проверка подписи
+        is_signed = verify(curve, (int(key_x_y[0]), int(key_x_y[1])), dgst, signature)  # проверка подписи
         return is_signed
-    elif (key_x == 'error0') or (key_y == 'error0') or (text == 'error0') or (signature == 'error0'):  # проверка правописания команды
+    elif (key_x_y[0] == 'error0') or (key_x_y[1] == 'error0') or (text == 'error0') or (signature == 'error0'):  # проверка правописания команды
         return 'Команда введена неверно, воспользуйтесь подсказкой  - /help'
